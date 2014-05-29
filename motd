@@ -1,0 +1,9 @@
+
+
+**************************
+Top of the morning to you!
+
+{{ greeting }}, I am {{ ansible_hostname }}
+**************************
+
+

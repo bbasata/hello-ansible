@@ -1,0 +1,13 @@
+- hosts: apt-caching
+  sudo: yes
+  tasks:
+    - apt: name={{ item }} state=present
+      with_items:
+        - apache2
+        - apt-mirror
+      notify:
+        - restart apache
+
+  handlers:
+    - name: restart apache
+      service: name=apache2 state=restarted
