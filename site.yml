@@ -3,7 +3,7 @@
   tasks:
     - name: Roll out the welcome mat
       template: >
-        src=motd
+        src=templates/motd
         dest=/etc/motd
     
 - hosts: web
@@ -22,7 +22,7 @@
 
     - name: Deploy the application
       copy: >
-        src=hello.php
+        src=app/hello.php
         dest=/var/www
 
   handlers:
@@ -43,14 +43,14 @@
 
     - name: Apply mysql configuration
       copy: >
-        src=my.cnf
+        src=files/my.cnf
         dest=/etc/mysql
       notify:
         - restart mysql
 
     - name: Copy schema to be restored
       copy: >
-        src=schema.sql
+        src=files/schema.sql
         dest=/tmp
 
     - name: Create database
