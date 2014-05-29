@@ -5,10 +5,7 @@
       template: >
         src=motd
         dest=/etc/motd
-
-    - name: Update the APT package cache
-      apt: update_cache=yes
-
+    
 - hosts: web
   sudo: yes
   tasks:
