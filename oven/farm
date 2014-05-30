@@ -1,0 +1,7 @@
+[web]
+blue.box    greeting=hello
+orange.box  greeting=hi
+green.box   greeting=greetings
+
+[database]
+purple.box greeting=welp

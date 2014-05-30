@@ -1,0 +1,81 @@
+# This is a "play"
+- hosts: all
+  sudo: yes
+  tasks:
+    # This is a "task". "template" is a "module"
+    - name: Roll out the welcome mat
+      template: >
+        src=templates/motd
+        dest=/etc/motd
+    
+- hosts: web
+  sudo: yes
+  tasks:
+    - name: Install packages
+      apt: >
+        name={{ item }}
+        state=installed
+      with_items:
+        - apache2=2.2.22-1ubuntu1.6
+        - libapache2-mod-php5=5.3.10-1ubuntu3.11
+        - php5-mysql
+      notify:
+        - restart apache
+
+    - name: Deploy the application
+      copy: >
+        src=app/hello.php
+        dest=/var/www
+
+  handlers:
+    - name: restart apache
+      service: name=apache2 state=restarted
+
+- hosts: database
+  sudo: yes
+  tasks:
+    - name: Install mysql
+      apt: >
+        name={{ item }}
+        state=installed
+      with_items:
+        - mysql-server=5.5.37-0ubuntu0.12.04.1
+        - mysql-client=5.5.37-0ubuntu0.12.04.1
+        - python-mysqldb
+
+    - name: Apply mysql configuration
+      copy: >
+        src=files/my.cnf
+        dest=/etc/mysql
+      notify:
+        - restart mysql
+
+    - name: Copy schema to be restored
+      copy: >
+        src=files/schema.sql
+        dest=/tmp
+
+    - name: Create database
+      mysql_db: >
+        name=hello
+        state=present
+      register: create_database
+
+    - name: Import schema
+      mysql_db: >
+        name=hello
+        state=import
+        target=/tmp/schema.sql
+      when: create_database.changed
+
+    - name: Create application user
+      mysql_user: >
+        name=app
+        host=%
+        password=secret
+        priv=*.*:ALL
+        state=present
+
+  handlers:
+    - name: restart mysql
+      service: name=mysql state=restarted
