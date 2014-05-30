@@ -2,7 +2,7 @@
   sudo: yes
   tasks:
     - name: Use local APT mirror
-      copy: src=files/sources.list dest=/etc/apt
+      copy: src=sources.list dest=/etc/apt
 
     - name: Update the APT package cache
       apt: update_cache=yes

@@ -15,7 +15,7 @@ On database servers:
 2. Change /etc/mysql/my.cnf to allow connections from any host. Restart MySQL.
 3. Create a MySQL database named 'hello'
 4. Import the database from the schema.sql file
-5. Create a MySQL user named 'app' with password 'secret' that can access the database from any host and that has permissions to all tables on all databases
+5. Create a MySQL user named 'app' with password 'secret' that can access the database from any host and that has permissions to all tables in all databases
 
 Finally, smoke test the application:
 curl http://blue.box
