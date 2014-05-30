@@ -5,7 +5,7 @@ On all servers:
 On web servers:
 
 1. Install Apache web server, version 2.2.22-1ubuntu1.6
-2. Install mod_php, version 5.3.10-1ubuntu3.11
+2. Install libapache2-mod-php5, version 5.3.10-1ubuntu3.11
 3. Install php5-mysql and restart apache
 5. Place hello.php in /var/www
 
@@ -16,3 +16,6 @@ On database servers:
 3. Create a MySQL database named 'hello'
 4. Import the database from the schema.sql file
 5. Create a MySQL user named 'app' with password 'secret' that can access the database from any host and that has permissions to all tables on all databases
+
+Finally, smoke test the application:
+curl http://blue.box

@@ -1,7 +1,6 @@
 [web]
-blue.box    greeting=hello
-orange.box  greeting=hi
-green.box   greeting=greetings
+blue.box
+orange.box
 
 [database]
-purple.box greeting=welp
+purple.box
