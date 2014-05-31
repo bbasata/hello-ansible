@@ -7,7 +7,7 @@
       template: >
         src=templates/motd
         dest=/etc/motd
-    
+
 - hosts: web
   sudo: yes
   tasks:
